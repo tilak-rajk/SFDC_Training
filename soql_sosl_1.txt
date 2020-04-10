@@ -1,0 +1,66 @@
+SOQL
+====
+
+Write SOQL Select all student Name,Dob,Sex where LastName starts with “S”
+- SELECT First_Name__c, Last_Name__c, DOB__c, Sex__c FROM Student__c WHERE Last_Name__c LIKE 'S%'
+
+
+
+Select All students where ClassName starts with “X”
+- SELECT First_Name__c, Last_Name__c, DOB__c, Sex__c, Class__r.Name__c FROM Student__c WHERE Class__r.Name__c LIKE 'X%'
+
+
+
+Select all Student and ClassName
+- SELECT First_Name__c, Last_Name__c, DOB__c, Sex__c, Class__r.Name__c FROM Student__c
+
+
+
+Select all Classes with students in every class as subquery
+- SELECT Name__c, (SELECT First_Name__c FROM Students__r) FROM Class__c
+
+
+
+Select all students where class teacher name starts with “S”
+- SELECT First_Name__c FROM Student__c WHERE Class__r.Class_Teacher__r.Name LIKE 'S%'
+
+
+
+All students where DOB > Year 2000
+- SELECT First_Name__c FROM Student__c WHERE CALENDAR_YEAR(DOB__C) > 2000
+
+
+All Leads Where ModifiedDate in current month
+- SELECT Company FROM Lead WHERE CALENDAR_MONTH(LastModifiedDate) = 4 AND CALENDAR_YEAR(LastModifiedDate) = 2020 LIMIT 10
+
+
+All Classes with Students as subquery where student Name Starts with “S”
+- SELECT Name__c, (SELECT First_Name__c FROM Students__r WHERE First_Name__c LIKE 'S%') FROM Class__c
+
+
+All Teachers who have Hindi and English both subjects
+- Select Teacher__r.Name from Teach__c where Subject__c ='hindi' or Subject__c ='english'
+
+
+All students who have hindi or maths
+- Select First_Name__c from Student__c where Class__c in (Select Class__c from Teach__c where Subject__c = 'Hindi' or Subject__c = 'english')
+
+
+Select no. of students per class
+- SELECT Class__r.Name__c, COUNT(Name) FROM Student__c GROUP BY Class__r.Name__c
+
+
+Monthly Birthday Count of students with sorting
+- SELECT CALENDAR_MONTH(DOB__C),COUNT(Name) FROM Student__c GROUP BY CALENDAR_MONTH(DOB__C) ORDER BY CALENDAR_MONTH(DOB__C) ASC
+
+
+
+SOSL
+====
+
+Find all persons with name as “Joe” i.e (Teachers or Students)
+- FIND {Joe} IN NAME FIELDS RETURNING Contact(FirstName,LastName),Student__c(First_Name__c,Last_Name__c)
+
+
+Find all Male persons with name as “Joe” i.e (Teachers or Students)
+- FIND {Joe} IN NAME FIELDS RETURNING Contact(FirstName,LastName),Student__c(First_Name__c,Last_Name__c WHERE Sex__c = "Male")
