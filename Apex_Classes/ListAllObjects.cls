@@ -1,26 +1,22 @@
 /*
-Apex Classes Assignment 4:
-
-Create a class which show the list of sobjects exists in org.
+Class which shows the list of all sobjects (Standard + Custom) exists in org.
 */
 
 public class ListAllObjects {
-    public static List<String> getAllCustomSObjects()
-    {
+    public static List<String> getAllCustomSObjects() {
         List<String> sObjectList = new List<String>();
-        for(Schema.SObjectType objTyp : Schema.getGlobalDescribe().Values())
-        {
+        
+		for(Schema.SObjectType objTyp : Schema.getGlobalDescribe().Values()) {
             Schema.DescribeSObjectResult describeSObjectResultObj = objTyp.getDescribe();
            
 			String name = objTyp.getDescribe().getName();
-			// Exclude all the unwanted Sobjects e.g. History, Share etc..
+			// Excluding all the unwanted Sobjects e.g. History, Share etc..
 			if(!name.containsignorecase('history') && !name.containsignorecase('tag')&&
 			 !name.containsignorecase('share') && !name.containsignorecase('feed'))
 			{
 				SobjectList.add(name);
 			}
         }
-        system.debug('SObjectList****' + SObjectList);
         return sObjectList;
     }
 }
