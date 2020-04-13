@@ -12,7 +12,7 @@ public class allStudentsInClassAsMap {
             for(Student__c stud : students){
                 studentIds.add(stud.Id);
             }
-            classStudents.Put(cls.Id,studentIds);
+            classStudents.put(cls.Id,studentIds);
         }                      
         return classStudents;
     }
