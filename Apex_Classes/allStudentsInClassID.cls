@@ -4,9 +4,9 @@ Class to returns all names of the students in a particular class as a list.
 
 public class allStudentsInClassID {
     public static List<Student__c> getAllStudentsInClass(Id clsId) {
-		List<Class__c> classes = new List<Class__C>([SELECT (SELECT First_Name__c FROM Students__r) FROM Class__c WHERE Id = :clsId]);
+		List<Class__c> classes = new List<Class__c>([SELECT (SELECT First_Name__c FROM Students__r) FROM Class__c WHERE Id = :clsId]);
         List<Student__c> students = new List<Student__c>();
-		for(Class__C class : classes) {
+		for(Class__c class : classes) {
 			students.add(class.Students__r);
 		}
         return students;
