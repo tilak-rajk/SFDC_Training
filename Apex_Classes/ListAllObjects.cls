@@ -14,7 +14,7 @@ public class ListAllObjects {
 			if(!name.containsignorecase('history') && !name.containsignorecase('tag')&&
 			 !name.containsignorecase('share') && !name.containsignorecase('feed'))
 			{
-				SobjectList.add(name);
+				sObjectList.add(name);
 			}
         }
         return sObjectList;
