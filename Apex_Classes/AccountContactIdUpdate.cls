@@ -7,11 +7,11 @@ This class will update Account object's ContactIDs custom field according to the
 public class AccountContactIdUpdate
 {
 	public static void updateContactIds(ID id) {
-		List<Account> accounts = [SELECT id,ContactIDs__c, (SELECT id FROM Contacts ) FROM account WHERE Name LIKE 'Accout Cnct Update%'];
+		List<Account> accounts = [SELECT Id, ContactIDs__c, (SELECT id FROM Contacts ) FROM account WHERE Name LIKE 'Accout Cnct Update%'];
 		
 		for( Account acc : accounts ) {
 			if(String.isBlank(acc.ContactIDs__c)) {
-				List<string> ids = new List<String>();
+				List<String> ids = new List<String>();
 				for(Contact con : acc.Contacts) {
 					ids.add(con.id);
 				}
