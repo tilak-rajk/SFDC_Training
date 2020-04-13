@@ -8,11 +8,11 @@ public class allStudentsInClassAsMap {
         List<Class__c> classes = new List<Class__c>([SELECT Id,(SELECT Id FROM Students__r) FROM Class__c]);
         for( Class__c cls : classes ) {
            	List<Student__c> students = cls.Students__r;
-            Set<Id> studId = new Set<id>();
+            Set<Id> studentIds = new Set<id>();
             for(Student__c stud : students){
-                studId.add(stud.Id);
+                studentIds.add(stud.Id);
             }
-            classStudents.Put(cls.Id,studId);
+            classStudents.Put(cls.Id,studentIds);
         }                      
         return classStudents;
     }
