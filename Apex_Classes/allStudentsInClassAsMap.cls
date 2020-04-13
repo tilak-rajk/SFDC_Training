@@ -7,14 +7,14 @@ Create a function which returns a map where key is class and value is set of stu
 public class allStudentsInClassAsMap {
 	public static Map<ID, Set<ID>> getClassStudentMap() {
         Map<ID, Set<ID>> classStudents = new Map<ID, Set<ID>>();
-        Class__c[] classes = [SELECT ID,(SELECT ID FROM Students__r) FROM Class__c];
+        List<Class__c> classes = new List<Class__c>([SELECT ID,(SELECT ID FROM Students__r) FROM Class__c]);
         for( Class__c cls : classes ) {
            	List<Student__c> students = cls.Students__r;
-            Set<ID> stud_id = new Set<id>();
+            Set<ID> studId = new Set<id>();
             for(Student__c stud : students){
-                stud_id.add(stud.ID);
+                studId.add(stud.ID);
             }
-            classStudents.Put(cls.Id,stud_id);
+            classStudents.Put(cls.Id,studId);
         }                      
         return classStudents;
     }
