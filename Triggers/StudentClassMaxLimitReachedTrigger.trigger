@@ -2,15 +2,15 @@
  * Trigger to prevent insertion of a student into a class if class's max capacity is reached.
  */
 trigger StudentClassMaxLimitReachedTrigger on Student__c (before insert) {
-    Set<Id> newIds = new Set<Id>();
+    Set<Id> studentIds = new Set<Id>();
     
     for(Student__c oneStudent : Trigger.New) {
-        newIds.add(oneStudent.Class__c);
+        studentIds.add(oneStudent.Class__c);
     }
     
     Map<Id, Decimal> studentsCountInClass = new Map<Id, Decimal>();
     Map<Id, Class__c> classes = new Map<Id, Class__c>(
-        [SELECT Id, Max_Size__c, Number_Of_Students__c FROM Class__c WHERE Id in :newIds]
+        [SELECT Id, Max_Size__c, Number_Of_Students__c FROM Class__c WHERE Id in :studentIds]
     );
 
     for(Student__c student: Trigger.new) {
